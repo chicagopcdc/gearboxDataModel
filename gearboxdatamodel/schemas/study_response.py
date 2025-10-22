@@ -1,0 +1,21 @@
+from pydantic import BaseModel
+
+from typing import Sequence, List, Optional
+
+
+class Link(BaseModel):
+    name: Optional[str]
+    href: Optional[str]
+
+
+class StudyResponse(BaseModel):
+    id: int
+    title: Optional[str]
+    code: Optional[str]
+    description: Optional[str]
+    links: Optional[List[Link]]
+    locations: Optional[List[str]]
+
+
+class StudyResponseSearchResults(BaseModel):
+    results: Sequence[StudyResponse]
