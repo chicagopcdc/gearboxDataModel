@@ -94,7 +94,7 @@ from .study_version import (
     StudyVersionUpdate,
 )
 from .eligibility_criteria_response import EligibilityCriteriaResponseResults
-from .match_form import MatchForm, MatchFormUpdate
+from .match_form import MatchForm, MatchFormUpdate, MatchFormField, MatchFormGroup
 from .study_has_patient import (
     StudyHasPatient,
     StudyHasPatientCreate,
