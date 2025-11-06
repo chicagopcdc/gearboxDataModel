@@ -1,0 +1,25 @@
+from pydantic import BaseModel
+from datetime import datetime
+from typing import Sequence, Optional
+
+
+class InputTypeBase(BaseModel):
+    id: int
+    data_type: Optional[str]
+    render_type: Optional[str]
+    create_date: Optional[datetime]
+
+    class Config:
+        from_attributes = True
+
+
+class InputType(InputTypeBase):
+    id: int
+
+
+class InputTypeCreate(InputTypeBase):
+    pass
+
+
+class InputTypeSearchResults(BaseModel):
+    results: Sequence[InputType]
