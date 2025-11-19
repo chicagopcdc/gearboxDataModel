@@ -8,7 +8,7 @@ from sqlalchemy import exc
 
 from fastapi import HTTPException
 from gearboxdatamodel.util import status
-
+from sqlalchemy import select, exc
 
 class CRUDValue(CRUDBase[Value, ValueCreate, ValueSearchResults]):
 
