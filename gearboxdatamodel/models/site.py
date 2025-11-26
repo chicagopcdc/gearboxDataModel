@@ -19,7 +19,7 @@ class Site(Base):
     location_lat = mapped_column(DECIMAL(10, 8), nullable=True)
     location_long = mapped_column(DECIMAL(11, 8), nullable=True)
 
-    UniqueConstraint(name, zip, name="site_uix")
+    UniqueConstraint(name, location_lat, location_long, name="site_uix", postgresql_nulls_not_distinct=True)
 
     studies = relationship("SiteHasStudy", back_populates="site")
     site_source = relationship("Source", back_populates="sites", lazy="joined")
