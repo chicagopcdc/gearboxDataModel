@@ -28,7 +28,8 @@ class Site(Base):
             'idx_name_lat_long',
             name,
             func.coalesce(location_lat, 0),
-            func.coalesce(location_long, 0)
+            func.coalesce(location_long, 0),
+            unique=True
         ),
     )
 
