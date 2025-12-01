@@ -23,14 +23,14 @@ class Site(Base):
     # The following solution will work on postgres 15 or later
     # UniqueConstraint(name, location_lat, location_long, name="site_uix", postgresql_nulls_not_distinct=True)
 
-    __table_args__ = {
+    __table_args__ = (
         Index(
             'idx_name_lat_long',
             name,
             func.coalesce(location_lat, 0),
             func.coalesce(location_long, 0)
         ),
-    }
+    )
 
     studies = relationship("SiteHasStudy", back_populates="site")
     site_source = relationship("Source", back_populates="sites", lazy="joined")
