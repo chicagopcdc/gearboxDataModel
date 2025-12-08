@@ -20,18 +20,10 @@ class Site(Base):
     location_lat = mapped_column(DECIMAL(10, 8), nullable=True)
     location_long = mapped_column(DECIMAL(11, 8), nullable=True)
 
-    # The following solution will work on postgres 15 or later
-    # UniqueConstraint(name, location_lat, location_long, name="site_uix", postgresql_nulls_not_distinct=True)
-
-    __table_args__ = (
-        Index(
-            'idx_name_lat_long',
-            name,
-            coalesce(location_lat, 0),
-            coalesce(location_long, 0),
-            unique=True
-        ),
-    )
+    # The following solution should be implemented after the upgrade to postgres 15 or later in
+    # order for the on_conflict clause in the upsert statement to treat nulls in 
+    # location_lat and location_long as equivalent i.e. "not distinct". 
+    UniqueConstraint(name, location_lat, location_long, name="site_uix", postgresql_nulls_not_distinct=True)
 
     studies = relationship("SiteHasStudy", back_populates="site")
     site_source = relationship("Source", back_populates="sites", lazy="joined")
