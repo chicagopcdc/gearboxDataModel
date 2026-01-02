@@ -104,3 +104,4 @@ from .study_external_id import StudyExternalIdCreate, StudyExternalIdSearchResul
 from .unit import Unit, UnitCreate, UnitSearchResults
 from .matching import MatchFormValues, MatchInfo, MatchInfoAlgorithm, MatchDetails
 from .match_conditions import MatchAlgorithm, MatchCondition
+from .matching_files_urls import MatchingFilesUrls
