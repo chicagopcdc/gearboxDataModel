@@ -1,7 +1,8 @@
 from pydantic import BaseModel, HttpUrl, AfterValidator, ValidationError
 from decimal import Decimal
 from datetime import datetime
-from typing import Annotated, TypeAlias
+from typing import Annotated
+from typing_extensions import TypeAlias
 
 def check_presigned_url_validity(url: HttpUrl) -> HttpUrl:
     if "X-Amz-Signature" not in url.query:
