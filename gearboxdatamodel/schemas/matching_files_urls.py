@@ -5,7 +5,7 @@ from typing import Annotated
 from typing_extensions import TypeAlias
 
 def check_presigned_url_validity(url: HttpUrl) -> HttpUrl:
-    if "X-Amz-Signature" not in url.query:
+    if "AWSAccessKeyId" not in url.query:
         raise ValueError("Matching files URL is missing signature")
     return url
 
