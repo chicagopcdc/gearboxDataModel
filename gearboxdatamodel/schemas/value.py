@@ -35,3 +35,7 @@ class ValueUpdate(BaseModel):
 
 class ValueSearchResults(BaseModel):
     results: Sequence[Value]
+
+
+class ValueUpsert(ValueBase):
+    id: Optional[int] = None
