@@ -49,6 +49,7 @@ from .criterion import (
     Criterion,
     CriterionPublish,
     CriterionUpdate,
+    CriterionUpdateIn,
 )
 from .criterion_staging import (
     CriterionStaging,
