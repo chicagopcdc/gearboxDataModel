@@ -90,3 +90,12 @@ class CriterionUpdate(BaseModel):
 
     tags: Optional[list[TagUpsert]] = None
     values: Optional[list[ValueUpsert]] = None
+
+
+class CriterionUpdateIn(BaseModel):
+    code: Optional[str] = None
+    display_name: Optional[str] = None
+    description: Optional[str] = None
+    ontology_code_id: Optional[int] = None
+    input_type_id: Optional[int] = None
+    active: Optional[bool] = None
