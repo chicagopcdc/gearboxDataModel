@@ -95,6 +95,7 @@ class CRUDCriterionStaging(
                 CriterionStagingModel.eligibility_criteria_id == eligibility_criteria_id
             )
             .where(CriterionStagingModel.criterion_adjudication_status == AdjudicationStatus.ACTIVE)
+            .where(CriterionStagingModel.echc_adjudication_status == EchcAdjudicationStatus.ACTIVE)
         )
         result = await db.execute(stmt)
         cs = result.unique().scalars().all()
