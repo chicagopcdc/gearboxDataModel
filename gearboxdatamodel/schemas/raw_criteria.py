@@ -19,12 +19,11 @@ class Entity(BaseModel):
 
 
 class RawCriteriaBase(BaseModel):
-    # text: Optional[str] = None
     text: str
     id: Optional[int] = None
     uuid: Optional[str] = None
     nct: Optional[str] = None
-    pre_annotated: Optional[List[PreAnnotated]] = None
+    nlp_model_version: Optional[List[Dict]] = None
     entities: List[Entity]
     Comments: Optional[Union[List[str], List[Dict]]] = None
     relations: Optional[Union[List[str], List[Dict]]] = None
