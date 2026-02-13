@@ -3,6 +3,8 @@ from datetime import datetime
 from typing import Sequence, List, Optional
 from .criterion_has_tag import CriterionHasTagTag
 from .criterion_has_value import CriterionHasValueValue
+from .value import ValueUpsert
+from .tag import TagUpsert
 
 
 class CriterionBase(BaseModel):
@@ -75,3 +77,25 @@ class CriterionCreateIn(CriterionBase):
 
 class CriterionSearchResults(BaseModel):
     results: Sequence[Criterion]
+
+
+class CriterionUpdate(BaseModel):
+    id: int
+    code: Optional[str] = None
+    display_name: Optional[str] = None
+    description: Optional[str] = None
+    active: Optional[bool] = None
+    ontology_code_id: Optional[int] = None
+    input_type_id: Optional[int] = None
+
+    tags: Optional[list[TagUpsert]] = None
+    values: Optional[list[ValueUpsert]] = None
+
+
+class CriterionUpdateIn(BaseModel):
+    code: Optional[str] = None
+    display_name: Optional[str] = None
+    description: Optional[str] = None
+    ontology_code_id: Optional[int] = None
+    input_type_id: Optional[int] = None
+    active: Optional[bool] = None

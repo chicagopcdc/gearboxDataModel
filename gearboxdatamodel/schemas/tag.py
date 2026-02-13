@@ -16,3 +16,7 @@ class TagCreate(TagBase):
 
 class TagSearchResults(BaseModel):
     results: Sequence[Tag]
+
+
+class TagUpsert(TagBase):
+    id: Optional[int] = None
