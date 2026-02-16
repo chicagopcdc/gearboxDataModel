@@ -20,8 +20,7 @@ class Site(Base):
     location_lat = mapped_column(DECIMAL(10, 8), nullable=True)
     location_long = mapped_column(DECIMAL(11, 8), nullable=True)
 
-    # The following solution should be implemented after the upgrade to postgres 15 or later in
-    # order for the on_conflict clause in the upsert statement to treat nulls in 
+    # The following constraint allows the on_conflict clause in the upsert statement to treat nulls in 
     # location_lat and location_long as equivalent i.e. "not distinct". 
     UniqueConstraint(name, location_lat, location_long, name="site_uix", postgresql_nulls_not_distinct=True)
 
