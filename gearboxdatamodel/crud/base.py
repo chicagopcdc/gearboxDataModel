@@ -218,8 +218,10 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             return updated
         
         except exc.SQLAlchemyError as e:
+            print(f"SQL ERROR IN UPSERT {type(e)} {e}")
             logger.error(f"SQL ERROR IN UPSERT {type(e)} {e}")
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, f"SQL ERROR IN UPSERT: {type(e)}: {e}")        
         except Exception as e:
+            print(f"ERROR IN UPSERT: {type(e)}: {e}") 
             logger.error(f"ERROR IN UPSERT: {type(e)}: {e}") 
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, f"ERROR IN UPSERT: {type(e)}: {e}")       
