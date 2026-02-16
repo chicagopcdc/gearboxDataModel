@@ -118,15 +118,12 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             await db.commit()
             return db_obj
         except IntegrityError as e:
-            print(f"CREATE CRUD IntegrityError ERROR {e}")
             logger.error(f"CREATE CRUD IntegrityError ERROR {e}")
             raise HTTPException(status.HTTP_409_CONFLICT, f"INTEGRITY SQL ERROR: {type(e)}: {e}")
         except exc.SQLAlchemyError as e:
-            print(f"CREATE CRUD SQLAlchemyError ERROR {e}")
             logger.error(f"CREATE CRUD SQLAlchemyError ERROR {e}")
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, f"SQL ERROR: {type(e)}: {e}")        
         except Exception as e:
-            print(f"CREATE CRUD OTHER ERROR {e}")
             logger.error(f"CREATE CRUD OTHER ERROR {e}")
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, f"OTHER ERROR: {type(e)}: {e}")        
 
@@ -221,10 +218,8 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             return updated
         
         except exc.SQLAlchemyError as e:
-            print(f"SQL ERROR IN UPSERT {type(e)} {e}")
             logger.error(f"SQL ERROR IN UPSERT {type(e)} {e}")
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, f"SQL ERROR IN UPSERT: {type(e)}: {e}")        
         except Exception as e:
-            print(f"ERROR IN UPSERT: {type(e)}: {e}") 
             logger.error(f"ERROR IN UPSERT: {type(e)}: {e}") 
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, f"ERROR IN UPSERT: {type(e)}: {e}")       
