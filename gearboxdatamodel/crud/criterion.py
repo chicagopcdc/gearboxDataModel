@@ -1,8 +1,8 @@
 from .base import CRUDBase
-from gearboxdatamodel.models import Criterion, DisplayRules
-from gearboxdatamodel.schemas import CriterionCreate, Criterion as CriterionSchema
+from gearboxdatamodel.models import Criterion, DisplayRules, Study, StudyVersion, ElCriteriaHasCriterion
+from gearboxdatamodel.schemas import CriterionCreate, Criterion as CriterionSchema, CriterionStudyInfo
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import select, distinct
 from typing import List
 
 
@@ -26,6 +26,25 @@ class CRUDCriterion(CRUDBase[Criterion, CriterionCreate, CriterionSchema]):
         result = await db.execute(stmt)
         criteria = result.unique().scalars().all()
         return criteria
+
+    async def get_studies_for_criterion(
+        self, db: Session, criterion_id: int
+    ) -> List[CriterionStudyInfo]:
+        """Get all studies that use this criterion in their eligibility criteria"""
+        stmt = (
+            select(
+                distinct(Study.id).label('study_id'),
+                Study.name,
+                Study.description
+            )
+            .select_from(Study)
+            .join(StudyVersion, StudyVersion.study_id == Study.id)
+            .join(ElCriteriaHasCriterion, StudyVersion.eligibility_criteria_id == ElCriteriaHasCriterion.eligibility_criteria_id)
+            .where(ElCriteriaHasCriterion.criterion_id == criterion_id)
+        )
+        result = await db.execute(stmt)
+        studies = result.all()
+        return [CriterionStudyInfo(study_id=s.study_id, name=s.name, description=s.description) for s in studies]
 
 
 criterion_crud = CRUDCriterion(Criterion)

@@ -50,6 +50,7 @@ from .criterion import (
     CriterionPublish,
     CriterionUpdate,
     CriterionUpdateIn,
+    CriterionStudyInfo,
 )
 from .criterion_staging import (
     CriterionStaging,

@@ -7,6 +7,15 @@ from .value import ValueUpsert
 from .tag import TagUpsert
 
 
+class CriterionStudyInfo(BaseModel):
+    study_id: int
+    name: Optional[str] = None
+    description: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
 class CriterionBase(BaseModel):
     code: Optional[str] = None
     display_name: Optional[str] = None
@@ -24,13 +33,14 @@ class Criterion(CriterionBase):
     id: int
     tags: Optional[List[CriterionHasTagTag]] = None
     values: Optional[List[CriterionHasValueValue]] = None
+    studies: Optional[List[CriterionStudyInfo]] = None
 
     # The purpose of this function is to flatten the
     # criterion model
     @model_serializer
     def serialize_model(self):
 
-        return {
+        result = {
             "id": self.id,
             "code": self.code,
             "display_name": self.display_name,
@@ -42,6 +52,17 @@ class Criterion(CriterionBase):
             "tags": [t.tag for t in self.tags],
             "values": [v.value for v in self.values],
         }
+        
+        if self.studies is not None:
+            result["studies"] = [
+                {
+                    "study_id": s.study_id,
+                    "name": s.name,
+                    "description": s.description
+                } for s in self.studies
+            ]
+
+        return result
 
     class Config:
         from_attributes = True
