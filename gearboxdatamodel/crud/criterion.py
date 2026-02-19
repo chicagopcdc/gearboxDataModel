@@ -39,7 +39,7 @@ class CRUDCriterion(CRUDBase[Criterion, CriterionCreate, CriterionSchema]):
             .where(ElCriteriaHasCriterion.criterion_id == criterion_id)
         )
         result = await db.execute(stmt)
-        studies = result.all()
+        studies = result.unique().scalars().all()
         return studies
 
 
