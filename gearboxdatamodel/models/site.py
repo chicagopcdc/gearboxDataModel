@@ -19,7 +19,9 @@ class Site(Base):
     location_lat = mapped_column(DECIMAL(10, 8), nullable=True)
     location_long = mapped_column(DECIMAL(11, 8), nullable=True)
 
-    UniqueConstraint(name, zip, name="site_uix")
+    # The following constraint allows the on_conflict clause in the upsert statement to treat nulls in 
+    # location_lat and location_long as equivalent i.e. "not distinct". 
+    UniqueConstraint(name, location_lat, location_long, name="site_uix", postgresql_nulls_not_distinct=True)
 
     studies = relationship("SiteHasStudy", back_populates="site")
     site_source = relationship("Source", back_populates="sites", lazy="joined")
