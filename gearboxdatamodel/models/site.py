@@ -1,6 +1,5 @@
-from sqlalchemy import Column,Integer, String, DateTime, UniqueConstraint, ForeignKey, DECIMAL, Index, PrimaryKeyConstraint
+from sqlalchemy import Integer, String, DateTime, UniqueConstraint, ForeignKey, DECIMAL
 from sqlalchemy.orm import relationship, mapped_column
-from sqlalchemy.sql.functions import coalesce
 
 from .base_class import Base
 
