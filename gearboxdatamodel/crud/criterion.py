@@ -1,5 +1,5 @@
 from .base import CRUDBase
-from gearboxdatamodel.models import Criterion, DisplayRules
+from gearboxdatamodel.models import Criterion, DisplayRules, Study, StudyVersion, ElCriteriaHasCriterion
 from gearboxdatamodel.schemas import CriterionCreate, Criterion as CriterionSchema
 from sqlalchemy.orm import Session
 from sqlalchemy import select
@@ -26,6 +26,21 @@ class CRUDCriterion(CRUDBase[Criterion, CriterionCreate, CriterionSchema]):
         result = await db.execute(stmt)
         criteria = result.unique().scalars().all()
         return criteria
+
+    async def get_studies_for_criterion(
+        self, db: Session, criterion_id: int
+    ) -> List[Study]:
+        """Get all studies that use this criterion in their eligibility criteria"""
+        stmt = (
+            select(Study)
+            .distinct(Study.id)
+            .join(StudyVersion, StudyVersion.study_id == Study.id)
+            .join(ElCriteriaHasCriterion, StudyVersion.eligibility_criteria_id == ElCriteriaHasCriterion.eligibility_criteria_id)
+            .where(ElCriteriaHasCriterion.criterion_id == criterion_id)
+        )
+        result = await db.execute(stmt)
+        studies = result.unique().scalars().all()
+        return studies
 
 
 criterion_crud = CRUDCriterion(Criterion)

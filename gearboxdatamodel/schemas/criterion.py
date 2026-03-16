@@ -5,6 +5,7 @@ from .criterion_has_tag import CriterionHasTagTag
 from .criterion_has_value import CriterionHasValueValue
 from .value import ValueUpsert
 from .tag import TagUpsert
+from .study import Study
 
 
 class CriterionBase(BaseModel):
@@ -24,6 +25,7 @@ class Criterion(CriterionBase):
     id: int
     tags: Optional[List[CriterionHasTagTag]] = None
     values: Optional[List[CriterionHasValueValue]] = None
+    studies: Optional[List[Study]] = None
 
     # The purpose of this function is to flatten the
     # criterion model
@@ -41,6 +43,7 @@ class Criterion(CriterionBase):
             "input_type_id": self.input_type_id,
             "tags": [t.tag for t in self.tags],
             "values": [v.value for v in self.values],
+            "studies": self.studies
         }
 
     class Config:
