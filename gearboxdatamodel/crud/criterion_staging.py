@@ -105,11 +105,9 @@ class CRUDCriterionStaging(
         self, db: Session, eligibility_criteria_id: int
     ):
         stmt = (
-            select(CriterionModel)
-            .join(CriterionStagingModel)
-            .where(
+            select(CriterionStagingModel).where(
                 CriterionStagingModel.eligibility_criteria_id == eligibility_criteria_id
-            )
+            ).join(CriterionModel)
         )
         result = await db.execute(stmt)
         cs = result.unique().scalars().all()
