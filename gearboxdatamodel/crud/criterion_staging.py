@@ -101,17 +101,4 @@ class CRUDCriterionStaging(
         cs = result.unique().scalars().all()
         return cs
 
-    async def get_staged_criteria_by_ec_id(
-        self, db: Session, eligibility_criteria_id: int
-    ):
-        stmt = (
-            select(CriterionModel).join(CriterionStagingModel).where(
-                CriterionStagingModel.eligibility_criteria_id == eligibility_criteria_id
-            ).where(CriterionStagingModel.criterion_id = CriterionModel.id)
-        )
-        result = await db.execute(stmt)
-        cs = result.unique().scalars().all()
-        return cs
-
-
 criterion_staging_crud = CRUDCriterionStaging(CriterionStagingModel)
