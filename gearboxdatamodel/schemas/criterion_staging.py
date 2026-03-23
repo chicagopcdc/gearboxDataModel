@@ -57,7 +57,6 @@ class CriterionStagingSearchResult(BaseModel):
     echc_ids: Optional[List[int]] = None
     criterion_value_ids: Optional[List[int]] = None
 
-
 class CriterionStagingUpdateIn(CriterionStagingBase):
     id: int
     start_char: Optional[int] = None
