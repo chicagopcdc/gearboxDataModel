@@ -18,7 +18,7 @@ class CRUDElCriteriaHasCriterion(
 ):
 
     async def get_echc_by_ec_id(self, current_session: Session, ec_id: int) -> List[ElCriteriaHasCriterion]:
-        return self.get_multi(
+        return await self.get_multi(
             current_session,
             where=f"ElCriteriaHasCriterion.eligibility_criteria_id = {ec_id}",
         )
