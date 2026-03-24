@@ -20,7 +20,7 @@ class CRUDElCriteriaHasCriterion(
     async def get_echc_by_ec_id(self, current_session: Session, ec_id: int) -> List[ElCriteriaHasCriterion]:
         retval = await self.get_multi(
             current_session,
-            where=[f"ElCriteriaHasCriterion.eligibility_criteria_id = {ec_id}"],
+            where=[f"eligibility_criteria_id = {ec_id}"],
         )
         return retval
 
