@@ -22,6 +22,6 @@ class CRUDElCriteriaHasCriterion(
             current_session,
             where=f"ElCriteriaHasCriterion.eligibility_criteria_id = {ec_id}",
         )
-	return retval
+        return retval
 
 el_criteria_has_criterion_crud = CRUDElCriteriaHasCriterion(ElCriteriaHasCriterion)
