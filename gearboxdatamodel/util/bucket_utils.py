@@ -11,7 +11,7 @@ def get_bucket_name(config):
 
     if config.DUMMY_S3:
         return config.S3_TEST_COMPOSE_BUCKET_NAME
-    elif config.TESTING:
+    elif config.TESTING_S3:
         return config.S3_TEST_BUCKET_NAME
     else:
         return config.S3_BUCKET_NAME
