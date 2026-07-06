@@ -25,6 +25,11 @@ class CRUDStudyVersion(CRUDBase[StudyVersion, StudyVersionSchema, StudyVersionCr
                     )
                 )
             )
+            .where(
+                (
+                        StudyVersion.study.active == True 
+                )
+            )
             .order_by(StudyVersion.id)
         )
 
