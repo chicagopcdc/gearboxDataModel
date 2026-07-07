@@ -1,5 +1,5 @@
 from .base import CRUDBase
-from gearboxdatamodel.models import StudyVersion
+from gearboxdatamodel.models import StudyVersion, Study
 from gearboxdatamodel.schemas import (
     StudyVersionCreate,
     StudyVersion as StudyVersionSchema,
@@ -25,6 +25,8 @@ class CRUDStudyVersion(CRUDBase[StudyVersion, StudyVersionSchema, StudyVersionCr
                     )
                 )
             )
+            .join(StudyVersion.study).where(Study.active == True)
+                .order_by(StudyVersion.id)
             .order_by(StudyVersion.id)
         )
 
