@@ -1,5 +1,5 @@
 from sqlalchemy import select, exc
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, raiseload
 from gearboxdatamodel.models import ElCriteriaHasCriterion, Criterion
 
 from fastapi import HTTPException
@@ -27,12 +27,14 @@ class CRUDEligibilityCriteria(
             select(ElCriteriaHasCriterion)
             .options(
                 joinedload(ElCriteriaHasCriterion.criterion).options(
-                    joinedload(Criterion.input_type)
-                ),
-                joinedload(ElCriteriaHasCriterion.value),
+                    raiseload(Criterion.values),
+                    raiseload(Criterion.display_rules),
+                    raiseload(Criterion.triggered_bys)
+                )
             )
             .order_by(ElCriteriaHasCriterion.id)
         )
+
 
         if ec_id:
             stmt = stmt.where(ElCriteriaHasCriterion.eligibility_criteria_id == ec_id)
