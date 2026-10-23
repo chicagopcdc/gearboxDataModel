@@ -48,8 +48,7 @@ class MatchFormGroup(BaseModel):
 class MatchFormOption(BaseModel):
     value: Union[float, int]
     label: str
-    operator: Optional[str]
-
+    operator: Optional[str] = None
     description: Optional[str] = None
 
 
