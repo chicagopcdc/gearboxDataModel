@@ -48,7 +48,7 @@ class MatchFormGroup(BaseModel):
 class MatchFormOption(BaseModel):
     value: Union[float, int]
     label: str
-    operator: Optional[str] = None
+    negative_picklist_option: Optional[bool] = None
     description: Optional[str] = None
 
 
