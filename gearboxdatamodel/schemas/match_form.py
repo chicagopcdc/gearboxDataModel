@@ -49,6 +49,7 @@ class MatchFormOption(BaseModel):
     value: Union[float, int]
     label: str
     negative_picklist_option: Optional[bool] = None
+    exclusive_rule_id: Optional[float,int] = None
     description: Optional[str] = None
 
 
