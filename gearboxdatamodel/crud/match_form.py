@@ -41,13 +41,13 @@ async def get_form_info(current_session: Session):
 
     try:
         result = await current_session.execute(stmt)
-        sites = result.unique().scalars().all()
+        form_info = result.unique().scalars().all()
     except exc.SQLAlchemyError as e:
         logger.error(f"Error in get_form_info: {type(e)}")
         raise HTTPException(
             status.HTTP_500_INTERNAL_SERVER_ERROR, f"SQL ERROR: {type(e)}: {e}"
         )
-    return sites
+    return form_info 
 
 
 async def clear_dr_tb_tags(current_session: Session):
